@@ -5,7 +5,7 @@ Sistema integral de análisis deportivo para la Premier League inglesa (Temporad
 
 ---
 
-## 🚀 Arquitectura y Tecnologías Principales
+## Arquitectura y Tecnologías Principales
 
 - **Backend:** [FastAPI](https://fastapi.tiangolo.com/) + Uvicorn + Pydantic v2 (Lifespan asíncrono, CORS restrictivo, gestión de sesiones).
 - **Frontend:** Dashboard SPA moderno (HTML5 + Tailwind CSS + Chart.js + Marked.js), 100% desacoplado y adaptable a dispositivos móviles.
@@ -16,7 +16,7 @@ Sistema integral de análisis deportivo para la Premier League inglesa (Temporad
 
 ---
 
-## 📦 Instalación y Configuración
+## Instalación y Configuración
 
 ### 1. Requisitos Previos
 - Python 3.10 o superior (recomendado Python 3.12/3.14 o entorno Conda).
@@ -48,7 +48,7 @@ GEMINI_MODEL_NAME=gemini-2.5-flash
 
 ---
 
-## 🖥️ Ejecución de la Aplicación
+## Ejecución de la Aplicación
 
 ### Iniciar el Servidor API y Dashboard
 Ejecuta el siguiente comando desde la raíz de `U5_Proyecto`:
@@ -66,7 +66,7 @@ Una vez iniciado el servidor:
 
 ---
 
-## 📡 Catálogo Principal de Endpoints REST
+## Catálogo Principal de Endpoints REST
 
 | Método | Endpoint | Descripción |
 | :--- | :--- | :--- |
@@ -85,7 +85,7 @@ Una vez iniciado el servidor:
 
 ---
 
-## 🧪 Ejecución de Pruebas Automatizadas
+## Ejecución de Pruebas Automatizadas
 
 ```bash
 # 1. Pruebas de la API REST y Dashboard (Fase 4 - 24 tests)
@@ -103,7 +103,7 @@ pytest tests/ -v
 
 ---
 
-## 🔒 Políticas de Seguridad y Confiabilidad
+## Políticas de Seguridad y Confiabilidad
 
 1. **Aislamiento de Datos:** DuckDB opera permanentemente en modo `read_only = True` con bloqueo de comandos DDL/DML e inyección de límites (`LIMIT 50`).
 2. **Sin Ejecución Arbitraria de Código:** `enable_code_execution = False` por defecto. Cualquier llamada dinámica es rechazada.
