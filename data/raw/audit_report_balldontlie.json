@@ -1,0 +1,512 @@
+{
+  "timestamp": "2026-11-17T23:05:36.324758",
+  "resumen_general": {},
+  "integridad": {
+    "temporada_2022": {
+      "total_registros": 380,
+      "registros_esperados": 380,
+      "coincide_esperado": true,
+      "ids_unicos": 380,
+      "duplicados_detectados": 0,
+      "detalle_duplicados": {},
+      "valores_season_encontrados": [
+        2022
+      ],
+      "season_consistente": true
+    },
+    "temporada_2023": {
+      "total_registros": 380,
+      "registros_esperados": 380,
+      "coincide_esperado": true,
+      "ids_unicos": 380,
+      "duplicados_detectados": 0,
+      "detalle_duplicados": {},
+      "valores_season_encontrados": [
+        2023
+      ],
+      "season_consistente": true
+    },
+    "temporada_2024": {
+      "total_registros": 380,
+      "registros_esperados": 380,
+      "coincide_esperado": true,
+      "ids_unicos": 380,
+      "duplicados_detectados": 0,
+      "detalle_duplicados": {},
+      "valores_season_encontrados": [
+        2024
+      ],
+      "season_consistente": true
+    },
+    "global": {
+      "total_partidos_analizados": 1140,
+      "total_ids_unicos": 1140,
+      "duplicados_cruzados_entre_temporadas": 0,
+      "detalle_duplicados_cruzados": {}
+    }
+  },
+  "calidad": {
+    "temporada_2022": {
+      "analisis_nulos": {
+        "referee_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "referee_country": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "round_number": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_latitude": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_longitude": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_capacity": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_stadium_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "home_formation": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "away_formation": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "home_manager_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "away_manager_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "first_half_home_score": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "first_half_away_score": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "second_half_home_score": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "second_half_away_score": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_name": {
+          "nulos": 1,
+          "pct": 0.26
+        },
+        "venue_city": {
+          "nulos": 1,
+          "pct": 0.26
+        }
+      },
+      "distribucion_status": {
+        "STATUS_FULL_TIME": 380
+      },
+      "distribucion_status_state": {
+        "final": 380
+      },
+      "estadisticas_marcadores": {
+        "ambos_marcadores_presentes": 380,
+        "ambos_marcadores_null": 0,
+        "un_marcador_null": 0,
+        "marcador_cero_local": 82,
+        "marcador_cero_visita": 125,
+        "marcador_cero_ambos": 23,
+        "marcadores_negativos": 0
+      },
+      "anomalias_detectadas": [],
+      "total_anomalias": 0
+    },
+    "temporada_2023": {
+      "analisis_nulos": {
+        "referee_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "referee_country": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "round_number": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_latitude": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_longitude": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_capacity": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_stadium_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "home_formation": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "away_formation": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "home_manager_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "away_manager_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "first_half_home_score": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "first_half_away_score": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "second_half_home_score": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "second_half_away_score": {
+          "nulos": 380,
+          "pct": 100.0
+        }
+      },
+      "distribucion_status": {
+        "STATUS_FULL_TIME": 380
+      },
+      "distribucion_status_state": {
+        "final": 380
+      },
+      "estadisticas_marcadores": {
+        "ambos_marcadores_presentes": 380,
+        "ambos_marcadores_null": 0,
+        "un_marcador_null": 0,
+        "marcador_cero_local": 68,
+        "marcador_cero_visita": 89,
+        "marcador_cero_ambos": 11,
+        "marcadores_negativos": 0
+      },
+      "anomalias_detectadas": [],
+      "total_anomalias": 0
+    },
+    "temporada_2024": {
+      "analisis_nulos": {
+        "referee_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "referee_country": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "round_number": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_latitude": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_longitude": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_capacity": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "venue_stadium_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "home_formation": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "away_formation": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "home_manager_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "away_manager_name": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "first_half_home_score": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "first_half_away_score": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "second_half_home_score": {
+          "nulos": 380,
+          "pct": 100.0
+        },
+        "second_half_away_score": {
+          "nulos": 380,
+          "pct": 100.0
+        }
+      },
+      "distribucion_status": {
+        "STATUS_FULL_TIME": 380
+      },
+      "distribucion_status_state": {
+        "final": 380
+      },
+      "estadisticas_marcadores": {
+        "ambos_marcadores_presentes": 380,
+        "ambos_marcadores_null": 0,
+        "un_marcador_null": 0,
+        "marcador_cero_local": 91,
+        "marcador_cero_visita": 87,
+        "marcador_cero_ambos": 16,
+        "marcadores_negativos": 0
+      },
+      "anomalias_detectadas": [],
+      "total_anomalias": 0
+    }
+  },
+  "consistencia": {
+    "temporada_2022": {
+      "total_equipos_distintos": 20,
+      "esperado_equipos": 20,
+      "fecha_minima": "2022-08-05T19:00:00+00:00",
+      "fecha_maxima": "2023-05-28T15:30:00+00:00",
+      "desbalances_de_partidos_por_equipo": [],
+      "equipos_detectados": [
+        "ID_1",
+        "ID_2",
+        "ID_3",
+        "ID_4",
+        "ID_131",
+        "ID_5",
+        "ID_7",
+        "ID_8",
+        "ID_9",
+        "ID_10",
+        "ID_11",
+        "ID_12",
+        "ID_13",
+        "ID_14",
+        "ID_15",
+        "ID_16",
+        "ID_18",
+        "ID_19",
+        "ID_20",
+        "ID_122"
+      ]
+    },
+    "temporada_2023": {
+      "total_equipos_distintos": 20,
+      "esperado_equipos": 20,
+      "fecha_minima": "2023-08-11T19:00:00+00:00",
+      "fecha_maxima": "2024-05-19T15:00:00+00:00",
+      "desbalances_de_partidos_por_equipo": [],
+      "equipos_detectados": [
+        "ID_1",
+        "ID_2",
+        "ID_3",
+        "ID_4",
+        "ID_5",
+        "ID_6",
+        "ID_7",
+        "ID_8",
+        "ID_9",
+        "ID_10",
+        "ID_12",
+        "ID_13",
+        "ID_14",
+        "ID_15",
+        "ID_16",
+        "ID_18",
+        "ID_19",
+        "ID_20",
+        "ID_6507",
+        "ID_16251"
+      ]
+    },
+    "temporada_2024": {
+      "total_equipos_distintos": 20,
+      "esperado_equipos": 20,
+      "fecha_minima": "2024-08-16T19:00:00+00:00",
+      "fecha_maxima": "2025-05-25T15:00:00+00:00",
+      "desbalances_de_partidos_por_equipo": [],
+      "equipos_detectados": [
+        "ID_1",
+        "ID_2",
+        "ID_131",
+        "ID_4",
+        "ID_5",
+        "ID_3",
+        "ID_7",
+        "ID_8",
+        "ID_9",
+        "ID_10",
+        "ID_12",
+        "ID_13",
+        "ID_14",
+        "ID_15",
+        "ID_16",
+        "ID_18",
+        "ID_19",
+        "ID_20",
+        "ID_115",
+        "ID_122"
+      ]
+    },
+    "transiciones_ascenso_descenso": {
+      "2022_a_2023": {
+        "descendidos_2022": [
+          "ID_11",
+          "ID_122",
+          "ID_131"
+        ],
+        "ascendidos_2023": [
+          "ID_16251",
+          "ID_6",
+          "ID_6507"
+        ],
+        "cantidad_descensos": 3,
+        "cantidad_ascensos": 3
+      },
+      "2023_a_2024": {
+        "descendidos_2023": [
+          "ID_16251",
+          "ID_6",
+          "ID_6507"
+        ],
+        "ascendidos_2024": [
+          "ID_115",
+          "ID_122",
+          "ID_131"
+        ],
+        "cantidad_descensos": 3,
+        "cantidad_ascensos": 3
+      }
+    }
+  },
+  "trazabilidad": {
+    "temporada_2022": {
+      "paginas_encontradas": 4,
+      "detalle_paginas": [
+        {
+          "archivo": "matches_2022_page_1.json",
+          "registros": 100
+        },
+        {
+          "archivo": "matches_2022_page_2.json",
+          "registros": 100
+        },
+        {
+          "archivo": "matches_2022_page_3.json",
+          "registros": 100
+        },
+        {
+          "archivo": "matches_2022_page_4.json",
+          "registros": 80
+        }
+      ],
+      "suma_registros_en_paginas": 380,
+      "ids_unicos_en_paginas": 380,
+      "registros_en_consolidado": 380,
+      "coincidencia_exacta": true,
+      "registros_perdidos_en_consolidacion": 0,
+      "registros_inventados_en_consolidacion": 0,
+      "estado_checkpoint": "COMPLETED"
+    },
+    "temporada_2023": {
+      "paginas_encontradas": 4,
+      "detalle_paginas": [
+        {
+          "archivo": "matches_2023_page_1.json",
+          "registros": 100
+        },
+        {
+          "archivo": "matches_2023_page_2.json",
+          "registros": 100
+        },
+        {
+          "archivo": "matches_2023_page_3.json",
+          "registros": 100
+        },
+        {
+          "archivo": "matches_2023_page_4.json",
+          "registros": 80
+        }
+      ],
+      "suma_registros_en_paginas": 380,
+      "ids_unicos_en_paginas": 380,
+      "registros_en_consolidado": 380,
+      "coincidencia_exacta": true,
+      "registros_perdidos_en_consolidacion": 0,
+      "registros_inventados_en_consolidacion": 0,
+      "estado_checkpoint": "COMPLETED"
+    },
+    "temporada_2024": {
+      "paginas_encontradas": 4,
+      "detalle_paginas": [
+        {
+          "archivo": "matches_2024_page_1.json",
+          "registros": 100
+        },
+        {
+          "archivo": "matches_2024_page_2.json",
+          "registros": 100
+        },
+        {
+          "archivo": "matches_2024_page_3.json",
+          "registros": 100
+        },
+        {
+          "archivo": "matches_2024_page_4.json",
+          "registros": 80
+        }
+      ],
+      "suma_registros_en_paginas": 380,
+      "ids_unicos_en_paginas": 380,
+      "registros_en_consolidado": 380,
+      "coincidencia_exacta": true,
+      "registros_perdidos_en_consolidacion": 0,
+      "registros_inventados_en_consolidacion": 0,
+      "estado_checkpoint": "COMPLETED"
+    }
+  },
+  "aptitud_lakehouse": {
+    "apto_para_pyspark": true,
+    "apto_para_parquet": true,
+    "apto_para_duckdb": true,
+    "dictamen": "APROBADO_PARA_PROCESAMIENTO"
+  }
+}

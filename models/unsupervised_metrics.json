@@ -1,0 +1,105 @@
+{
+  "total_observaciones": 60,
+  "variables_utilizadas": [
+    "puntos",
+    "goles_favor",
+    "goles_contra",
+    "diferencia_goles",
+    "victorias",
+    "empates",
+    "derrotas"
+  ],
+  "pca": {
+    "varianza_explicada_pc1": 0.7731,
+    "varianza_explicada_pc2": 0.1698,
+    "varianza_acumulada_2_componentes": 0.9429,
+    "cargas_factoriales": {
+      "PC1": {
+        "puntos": 0.4263762740941635,
+        "goles_favor": 0.3814713152266398,
+        "goles_contra": -0.3769167397384167,
+        "diferencia_goles": 0.4256318445850516,
+        "victorias": 0.42050548743903526,
+        "empates": -0.00027465528069681514,
+        "derrotas": -0.4154867895939197
+      },
+      "PC2": {
+        "puntos": -0.03238827499167221,
+        "goles_favor": -0.24443688761858312,
+        "goles_contra": -0.24759003477413266,
+        "diferencia_goles": -0.01774416204245717,
+        "victorias": -0.1519119003846206,
+        "empates": 0.9012475233411736,
+        "derrotas": -0.20557627100736345
+      }
+    }
+  },
+  "kmeans": {
+    "evaluacion_k": [
+      {
+        "k": 2,
+        "inercia": 208.52,
+        "silhouette": 0.4012
+      },
+      {
+        "k": 3,
+        "inercia": 152.49,
+        "silhouette": 0.3206
+      },
+      {
+        "k": 4,
+        "inercia": 115.86,
+        "silhouette": 0.3259
+      },
+      {
+        "k": 5,
+        "inercia": 83.08,
+        "silhouette": 0.3797
+      },
+      {
+        "k": 6,
+        "inercia": 72.86,
+        "silhouette": 0.3283
+      }
+    ],
+    "k_optimo_seleccionado": 3,
+    "silhouette_k_optimo": 0.3206,
+    "perfiles_promedio_cluster": [
+      {
+        "cluster": 0,
+        "puntos": 72.47619047619048,
+        "goles_favor": 75.47619047619048,
+        "goles_contra": 46.285714285714285,
+        "diferencia_goles": 29.19047619047619,
+        "victorias": 21.476190476190474,
+        "empates": 8.047619047619047,
+        "derrotas": 8.476190476190476
+      },
+      {
+        "cluster": 1,
+        "puntos": 25.4,
+        "goles_favor": 39.5,
+        "goles_contra": 80.5,
+        "diferencia_goles": -41.0,
+        "victorias": 5.9,
+        "empates": 7.7,
+        "derrotas": 24.4
+      },
+      {
+        "cluster": 2,
+        "puntos": 47.6551724137931,
+        "goles_favor": 50.51724137931034,
+        "goles_contra": 57.51724137931034,
+        "diferencia_goles": -7.0,
+        "victorias": 12.689655172413794,
+        "empates": 9.586206896551724,
+        "derrotas": 15.724137931034482
+      }
+    ],
+    "etiquetas_cualitativas": {
+      "0": "Contendientes al Título / Top 4",
+      "2": "Mitad de Tabla Consolidada",
+      "1": "Zona de Descenso / Lucha por Permanencia"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+# ===========================================================================
+# Dependencias Oficiales del Proyecto: Agente de Análisis Deportivo Premier League
+# ===========================================================================
+
+# Framework Web y API REST (Fase 4)
+fastapi>=0.115.0
+uvicorn>=0.30.0
+starlette>=0.38.0
+pydantic>=2.9.0
+pydantic-settings>=2.4.0
+httpx>=0.27.0
+
+# Inteligencia Artificial y Agente Conversacional (Fase 3)
+google-genai>=3.5.0
+python-dotenv>=1.0.0
+
+# Base de Datos Analítica y Lakehouse (Fase 1)
+duckdb>=1.0.0
+pyarrow>=17.0.0
+
+# Machine Learning y Modelado Predictivo (Fase 2)
+scikit-learn>=1.5.0
+flaml>=2.3.0
+lightgbm>=4.5.0
+xgboost>=2.1.0
+joblib>=1.4.0
+
+# Manipulación de Datos y Visualizaciones
+numpy>=1.26.0
+pandas>=2.2.0
+matplotlib>=3.9.0
+seaborn>=0.13.0
+
+# Pruebas Automatizadas y Calidad
+pytest>=8.0.0

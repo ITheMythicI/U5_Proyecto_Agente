@@ -1,0 +1,53 @@
+# Environment variables and secrets
+.env
+.env.local
+*.env
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Spark / PySpark local logs
+metastore_db/
+derby.log
+checkpoint/
+spark-warehouse/
+
+# Local databases and cache (keep schema scripts, ignore generated DB binaries if needed)
+data/lakehouse/*.duckdb.wal
+data/lakehouse/*.duckdb.tmp
+
+# Archivos auxiliares de Spark
+*.crc
+_SUCCESS
+
+# Checkpoints temporales de ingesta
+data/raw/.checkpoint_historical.json

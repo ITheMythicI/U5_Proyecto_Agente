@@ -1,0 +1,314 @@
+{
+  "baseline_most_frequent": {
+    "model_name": "Baseline Most Frequent",
+    "accuracy": 0.4079,
+    "macro_f1": 0.1931,
+    "weighted_f1": 0.2364,
+    "log_loss": 21.3416,
+    "per_class": {
+      "Empate": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 93.0
+      },
+      "Local": {
+        "precision": 0.4079,
+        "recall": 1.0,
+        "f1_score": 0.5794,
+        "support": 155.0
+      },
+      "Visita": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 132.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        93,
+        0
+      ],
+      [
+        0,
+        155,
+        0
+      ],
+      [
+        0,
+        132,
+        0
+      ]
+    ]
+  },
+  "rf_unweighted": {
+    "model_name": "Random Forest Unweighted",
+    "accuracy": 0.5184,
+    "macro_f1": 0.392,
+    "weighted_f1": 0.4443,
+    "log_loss": 1.0344,
+    "per_class": {
+      "Empate": {
+        "precision": 0.3333,
+        "recall": 0.0108,
+        "f1_score": 0.0208,
+        "support": 93.0
+      },
+      "Local": {
+        "precision": 0.4981,
+        "recall": 0.8452,
+        "f1_score": 0.6268,
+        "support": 155.0
+      },
+      "Visita": {
+        "precision": 0.5702,
+        "recall": 0.4924,
+        "f1_score": 0.5285,
+        "support": 132.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        1,
+        65,
+        27
+      ],
+      [
+        2,
+        131,
+        22
+      ],
+      [
+        0,
+        67,
+        65
+      ]
+    ]
+  },
+  "rf_weighted": {
+    "model_name": "Random Forest Weighted",
+    "accuracy": 0.4895,
+    "macro_f1": 0.4186,
+    "weighted_f1": 0.4585,
+    "log_loss": 1.0311,
+    "per_class": {
+      "Empate": {
+        "precision": 0.2195,
+        "recall": 0.0968,
+        "f1_score": 0.1343,
+        "support": 93.0
+      },
+      "Local": {
+        "precision": 0.5274,
+        "recall": 0.6839,
+        "f1_score": 0.5955,
+        "support": 155.0
+      },
+      "Visita": {
+        "precision": 0.5145,
+        "recall": 0.5379,
+        "f1_score": 0.5259,
+        "support": 132.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        9,
+        49,
+        35
+      ],
+      [
+        17,
+        106,
+        32
+      ],
+      [
+        15,
+        46,
+        71
+      ]
+    ]
+  },
+  "logistic_regression": {
+    "model_name": "Logistic Regression Balanced",
+    "accuracy": 0.4947,
+    "macro_f1": 0.4581,
+    "weighted_f1": 0.4868,
+    "log_loss": 1.0288,
+    "per_class": {
+      "Empate": {
+        "precision": 0.2838,
+        "recall": 0.2258,
+        "f1_score": 0.2515,
+        "support": 93.0
+      },
+      "Local": {
+        "precision": 0.5595,
+        "recall": 0.6065,
+        "f1_score": 0.582,
+        "support": 155.0
+      },
+      "Visita": {
+        "precision": 0.529,
+        "recall": 0.553,
+        "f1_score": 0.5407,
+        "support": 132.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        21,
+        40,
+        32
+      ],
+      [
+        28,
+        94,
+        33
+      ],
+      [
+        25,
+        34,
+        73
+      ]
+    ]
+  },
+  "lightgbm_weighted": {
+    "model_name": "LightGBM Weighted",
+    "accuracy": 0.4368,
+    "macro_f1": 0.3918,
+    "weighted_f1": 0.4246,
+    "log_loss": 1.1078,
+    "per_class": {
+      "Empate": {
+        "precision": 0.1884,
+        "recall": 0.1398,
+        "f1_score": 0.1605,
+        "support": 93.0
+      },
+      "Local": {
+        "precision": 0.5028,
+        "recall": 0.5871,
+        "f1_score": 0.5417,
+        "support": 155.0
+      },
+      "Visita": {
+        "precision": 0.4769,
+        "recall": 0.4697,
+        "f1_score": 0.4733,
+        "support": 132.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        13,
+        47,
+        33
+      ],
+      [
+        29,
+        91,
+        35
+      ],
+      [
+        27,
+        43,
+        62
+      ]
+    ]
+  },
+  "xgboost": {
+    "model_name": "XGBoost",
+    "accuracy": 0.4974,
+    "macro_f1": 0.3867,
+    "weighted_f1": 0.4343,
+    "log_loss": 1.2366,
+    "per_class": {
+      "Empate": {
+        "precision": 0.2308,
+        "recall": 0.0323,
+        "f1_score": 0.0566,
+        "support": 93.0
+      },
+      "Local": {
+        "precision": 0.4885,
+        "recall": 0.8258,
+        "f1_score": 0.6139,
+        "support": 155.0
+      },
+      "Visita": {
+        "precision": 0.5524,
+        "recall": 0.4394,
+        "f1_score": 0.4895,
+        "support": 132.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        3,
+        65,
+        25
+      ],
+      [
+        5,
+        128,
+        22
+      ],
+      [
+        5,
+        69,
+        58
+      ]
+    ]
+  },
+  "flaml_automl": {
+    "model_name": "FLAML AutoML Best",
+    "accuracy": 0.5053,
+    "macro_f1": 0.3735,
+    "weighted_f1": 0.4268,
+    "log_loss": 1.0271,
+    "per_class": {
+      "Empate": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 93.0
+      },
+      "Local": {
+        "precision": 0.4924,
+        "recall": 0.8387,
+        "f1_score": 0.6205,
+        "support": 155.0
+      },
+      "Visita": {
+        "precision": 0.5345,
+        "recall": 0.4697,
+        "f1_score": 0.5,
+        "support": 132.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        64,
+        29
+      ],
+      [
+        0,
+        130,
+        25
+      ],
+      [
+        0,
+        70,
+        62
+      ]
+    ],
+    "best_estimator": "lrl1",
+    "best_config": {
+      "C": 1.0
+    }
+  }
+}

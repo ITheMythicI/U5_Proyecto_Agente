@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premier League AI Sports Analyst | Dashboard y API</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            pl: {
+              purple: '#38003c',
+              green: '#00ff87',
+              cyan: '#04f1ff',
+              dark: '#0a0e17',
+              card: '#131b2e'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Marked.js CDN para parsear Markdown en el Chat -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- DOMPurify CDN para sanitización estricta anti-XSS -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Estilos Personalizados -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-[#0a0e17] text-slate-100 flex flex-col min-h-screen">
+
+  <!-- ==================================================================== -->
+  <!-- BARRA SUPERIOR DE NAVEGACIÓN -->
+  <!-- ==================================================================== -->
+  <header class="border-b border-slate-800/80 bg-[#0d1322]/90 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo y Título -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#38003c] to-[#1e293b] border border-[#00ff87]/40 flex items-center justify-center shadow-lg shadow-[#00ff87]/10">
+          <span class="text-lg font-black text-[#00ff87]">PL</span>
+        </div>
+        <div>
+          <h1 class="text-base font-bold text-white tracking-tight flex items-center gap-2">
+            Premier League AI Analyst
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-[#00ff87]/20 text-[#00ff87] font-semibold border border-[#00ff87]/30">Fase 4</span>
+          </h1>
+          <p class="text-xs text-slate-400">Agente Inteligente de Análisis Deportivo & API REST | TecNM / ITL</p>
+        </div>
+      </div>
+
+      <!-- Enlaces Rápidos y Docs -->
+      <div class="flex items-center gap-3">
+        <a href="/docs" target="_blank" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-sky-400 border border-slate-700/60 transition-all flex items-center gap-1.5 font-medium">
+          <span>⚡ Swagger Docs</span>
+        </a>
+        <div class="hidden sm:flex items-center gap-2 text-xs text-emerald-400 bg-emerald-950/40 border border-emerald-800/40 px-2.5 py-1 rounded-full">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Lakehouse Conectado</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pestañas de Navegación -->
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-1 overflow-x-auto py-2 text-xs font-medium border-t border-slate-800/40">
+      <button class="nav-tab active px-3.5 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5" data-tab="overview">
+        <span>📊</span> <span>Inicio / Overview</span>
+      </button>
+      <button class="nav-tab px-3.5 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-slate-300 hover:text-white" data-tab="standings">
+        <span>🏆</span> <span>Clasificación</span>
+      </button>
+      <button class="nav-tab px-3.5 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-slate-300 hover:text-white" data-tab="teams">
+        <span>⚽</span> <span>Equipos & Comparador</span>
+      </button>
+      <button class="nav-tab px-3.5 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-slate-300 hover:text-white" data-tab="predictions">
+        <span>🎯</span> <span>Predicciones (1X2)</span>
+      </button>
+      <button class="nav-tab px-3.5 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-slate-300 hover:text-white" data-tab="chat">
+        <span>🤖</span> <span>Asistente IA (Chat)</span>
+      </button>
+      <button class="nav-tab px-3.5 py-1.5 rounded-lg border border-transparent transition-all flex items-center gap-1.5 text-slate-300 hover:text-white" data-tab="storytelling">
+        <span>📖</span> <span>Storytelling</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ==================================================================== -->
+  <!-- CONTENEDOR PRINCIPAL DINÁMICO -->
+  <!-- ==================================================================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- SECCIÓN A: OVERVIEW / INICIO -->
+    <!-- ------------------------------------------------------------------ -->
+    <section id="section-overview" class="tab-content space-y-6">
+      
+      <!-- Banner de Bienvenida -->
+      <div class="glass-card p-6 bg-gradient-to-r from-purple-950/40 via-slate-900/60 to-emerald-950/30 border-slate-800">
+        <h2 class="text-xl font-bold text-white mb-1">Bienvenido al Sistema de Analítica de la Premier League</h2>
+        <p class="text-sm text-slate-300 max-w-3xl">
+          Infraestructura de datos analíticos estructurada sobre 1,140 encuentros oficiales (Temporadas 2022-2025). 
+          Integra modelos supervisados para estimación 1X2, perfiles taxonómicos K-Means y un agente impulsado por Gemini con Function Calling real.
+        </p>
+      </div>
+
+      <!-- Tarjetas de Métricas Clave (KPIs) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="glass-card p-4 glass-card-hover text-center">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium">Partidos</div>
+          <div id="kpi-matches" class="text-2xl font-black text-white mt-1">1,140</div>
+          <div class="text-[10px] text-emerald-400 mt-0.5">3 Temporadas</div>
+        </div>
+        <div class="glass-card p-4 glass-card-hover text-center">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium">Goles Totales</div>
+          <div id="kpi-goals" class="text-2xl font-black text-sky-400 mt-1">--</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">100% Auditados</div>
+        </div>
+        <div class="glass-card p-4 glass-card-hover text-center">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium">Prom. Goles / PJ</div>
+          <div id="kpi-avg-goals" class="text-2xl font-black text-[#00ff87] mt-1">--</div>
+          <div class="text-[10px] text-emerald-400 mt-0.5">Alta efectividad</div>
+        </div>
+        <div class="glass-card p-4 glass-card-hover text-center">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium">Clubes Únicos</div>
+          <div id="kpi-teams" class="text-2xl font-black text-white mt-1">24</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">Catalogados</div>
+        </div>
+        <div class="glass-card p-4 glass-card-hover text-center">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium">Victoria Local</div>
+          <div id="kpi-home-wins" class="text-2xl font-black text-emerald-400 mt-1">--%</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">Ventaja de campo</div>
+        </div>
+        <div class="glass-card p-4 glass-card-hover text-center">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium">Empate / Visita</div>
+          <div id="kpi-draws" class="text-2xl font-black text-rose-400 mt-1">--%</div>
+          <div id="kpi-away-wins" class="text-[10px] text-slate-400 mt-0.5">Visita: --%</div>
+        </div>
+      </div>
+
+      <!-- Gráficos del Overview -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="glass-card p-5">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-semibold text-white">Distribución de Resultados Históricos (1X2)</h3>
+            <span class="text-xs text-slate-400">1,140 Partidos</span>
+          </div>
+          <div class="h-64 relative flex items-center justify-center">
+            <canvas id="chart-outcome-donut"></canvas>
+          </div>
+          <p class="text-xs text-slate-400 text-center mt-3">Muestra la ventaja histórica del equipo anfitrión y el equilibrio de empates en el Lakehouse.</p>
+        </div>
+
+        <div class="glass-card p-5">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-semibold text-white">Volumen de Goles por Temporada</h3>
+            <span class="text-xs text-slate-400">380 partidos por ciclo</span>
+          </div>
+          <div class="h-64 relative flex items-center justify-center">
+            <canvas id="chart-seasons-bar"></canvas>
+          </div>
+          <p class="text-xs text-slate-400 text-center mt-3">Comparativa del rendimiento goleador en las temporadas 2022-23, 2023-24 y 2024-25.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- SECCIÓN B: CLASIFICACIÓN / STANDINGS -->
+    <!-- ------------------------------------------------------------------ -->
+    <section id="section-standings" class="tab-content hidden space-y-6">
+      
+      <!-- Controles de Filtro -->
+      <div class="glass-card p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h2 class="text-base font-bold text-white">Tabla General de Posiciones</h2>
+          <p class="text-xs text-slate-400">Puntos oficiales, balance goleador y asignación taxonómica por clúster K-Means.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <label for="standings-season-select" class="text-xs text-slate-300 font-medium">Temporada:</label>
+          <select id="standings-season-select" class="bg-slate-800 text-white text-xs border border-slate-700 rounded-lg px-3 py-1.5 focus:outline-none focus:border-[#00ff87]">
+            <option value="2024" selected>2024 - 2025</option>
+            <option value="2023">2023 - 2024</option>
+            <option value="2022">2022 - 2023</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Leyenda de Clústeres K-Means -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="glass-card p-3 border-emerald-900/40 flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-emerald-400 shrink-0"></span>
+          <div class="text-xs">
+            <div class="font-bold text-emerald-400">Alto Rendimiento / Contendientes Europeos</div>
+            <div class="text-[11px] text-slate-400">Top 4 + Plazas continentales (60+ pts)</div>
+          </div>
+        </div>
+        <div class="glass-card p-3 border-sky-900/40 flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-sky-400 shrink-0"></span>
+          <div class="text-xs">
+            <div class="font-bold text-sky-400">Mitad de Tabla Consolidada</div>
+            <div class="text-[11px] text-slate-400">Rendimiento intermedio estable (40 - 59 pts)</div>
+          </div>
+        </div>
+        <div class="glass-card p-3 border-rose-900/40 flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-rose-400 shrink-0"></span>
+          <div class="text-xs">
+            <div class="font-bold text-rose-400">Zona de Descenso / Lucha por Permanencia</div>
+            <div class="text-[11px] text-slate-400">Estrato inferior y descenso (&lt; 40 pts)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de Posiciones -->
+      <div class="glass-card overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs table-pl">
+            <thead class="bg-slate-900/80 text-slate-400">
+              <tr>
+                <th class="py-3 px-3 text-center">Pos</th>
+                <th class="py-3 px-3">Equipo</th>
+                <th class="py-3 px-2 text-center">PJ</th>
+                <th class="py-3 px-2 text-center text-emerald-400">Pts</th>
+                <th class="py-3 px-2 text-center">V</th>
+                <th class="py-3 px-2 text-center">E</th>
+                <th class="py-3 px-2 text-center">D</th>
+                <th class="py-3 px-2 text-center">GF</th>
+                <th class="py-3 px-2 text-center">GC</th>
+                <th class="py-3 px-2 text-center">DIF</th>
+                <th class="py-3 px-3 text-center">Perfil / Clúster K-Means</th>
+              </tr>
+            </thead>
+            <tbody id="standings-tbody" class="divide-y divide-slate-800/40">
+              <!-- Renderizado dinámico desde app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- SECCIÓN C: EQUIPOS Y COMPARADOR -->
+    <!-- ------------------------------------------------------------------ -->
+    <section id="section-teams" class="tab-content hidden space-y-6">
+      
+      <!-- Selector de Perfil Individual -->
+      <div class="glass-card p-5">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+          <div>
+            <h2 class="text-base font-bold text-white">Perfil Táctico y Rendimiento Histórico</h2>
+            <p class="text-xs text-slate-400">Consulta de métricas acumuladas y evolución de clúster por club.</p>
+          </div>
+          <div class="w-full sm:w-64">
+            <select id="team-profile-select" class="w-full bg-slate-800 text-white text-xs border border-slate-700 rounded-lg px-3 py-2 focus:outline-none focus:border-[#00ff87]">
+              <!-- Opciones dinámicas -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Tarjetas de Estadísticas del Club -->
+        <div id="team-profile-details">
+          <!-- Renderizado dinámico desde app.js -->
+        </div>
+
+        <!-- Gráfico de Evolución Histórica -->
+        <div class="mt-4 pt-4 border-t border-slate-800">
+          <h3 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Evolución Temporada a Temporada</h3>
+          <div class="h-60 relative">
+            <canvas id="chart-team-history"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparador Cara a Cara (Head to Head) -->
+      <div class="glass-card p-5">
+        <div class="mb-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span>⚖️</span> <span>Comparador Directo entre Clubes</span>
+          </h3>
+          <p class="text-xs text-slate-400">Analiza métricas ofensivas y defensivas cara a cara para una temporada específica.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+          <div>
+            <label class="text-[11px] text-slate-400 block mb-1">Primer Club (A):</label>
+            <select id="compare-team-a" class="w-full bg-slate-800 text-white text-xs border border-slate-700 rounded-lg px-3 py-2">
+              <!-- Dinámico -->
+            </select>
+          </div>
+          <div>
+            <label class="text-[11px] text-slate-400 block mb-1">Segundo Club (B):</label>
+            <select id="compare-team-b" class="w-full bg-slate-800 text-white text-xs border border-slate-700 rounded-lg px-3 py-2">
+              <!-- Dinámico -->
+            </select>
+          </div>
+          <div>
+            <label class="text-[11px] text-slate-400 block mb-1">Temporada:</label>
+            <select id="compare-season-select" class="w-full bg-slate-800 text-white text-xs border border-slate-700 rounded-lg px-3 py-2">
+              <option value="2024" selected>2024 - 2025</option>
+              <option value="2023">2023 - 2024</option>
+              <option value="2022">2022 - 2023</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="btn-compare-teams" class="w-full py-2 bg-gradient-to-r from-purple-900 to-slate-800 hover:from-purple-800 hover:to-slate-700 text-[#00ff87] border border-[#00ff87]/30 rounded-xl text-xs font-bold transition-all shadow-md">
+          Ejecutar Comparación Analítica
+        </button>
+
+        <div id="team-comparison-results" class="mt-4 pt-4 border-t border-slate-800/80">
+          <div class="text-center py-4 text-xs text-slate-400">Selecciona dos clubes para visualizar la comparativa.</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- SECCIÓN D: PREDICCIONES DE PARTIDOS (1X2) -->
+    <!-- ------------------------------------------------------------------ -->
+    <section id="section-predictions" class="tab-content hidden space-y-6">
+      
+      <div class="glass-card p-6">
+        <div class="mb-6">
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <span>🎯</span> <span>Pronóstico Estadístico de Partidos (Modelo 1X2)</span>
+          </h2>
+          <p class="text-xs text-slate-400">
+            Inferencia en tiempo real utilizando las 26 características pre-partido auditadas sin fuga de información (rolling form de 5 juegos y acumulación de temporada).
+          </p>
+        </div>
+
+        <form id="prediction-form" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Equipo Local (Home):</label>
+              <select id="pred-home-team" class="w-full bg-slate-800 text-white text-xs border border-slate-700 rounded-xl px-3 py-2.5 focus:border-[#00ff87] focus:outline-none">
+                <!-- Opciones dinámicas -->
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Equipo Visitante (Away):</label>
+              <select id="pred-away-team" class="w-full bg-slate-800 text-white text-xs border border-slate-700 rounded-xl px-3 py-2.5 focus:border-[#00ff87] focus:outline-none">
+                <!-- Opciones dinámicas -->
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Modelo Predictivo:</label>
+              <select id="pred-model-select" class="w-full bg-slate-800 text-white text-xs border border-slate-700 rounded-xl px-3 py-2.5 focus:border-[#00ff87] focus:outline-none">
+                <option value="champion" selected>Champion (Regresión Logística Balanceada)</option>
+                <option value="automl">FLAML AutoML Best Estimator (LRL1)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" id="btn-run-prediction" class="w-full py-3 bg-gradient-to-r from-purple-900 via-indigo-950 to-slate-900 hover:from-purple-800 hover:to-slate-800 text-[#00ff87] border border-[#00ff87]/40 rounded-xl font-bold text-sm transition-all shadow-lg shadow-[#00ff87]/10 flex items-center justify-center gap-2">
+              <span>⚡</span> <span>Ejecutar Predicción</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Contenedor del resultado de predicción -->
+        <div id="prediction-result-box" class="mt-6 hidden">
+          <!-- Renderizado dinámico desde app.js -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- SECCIÓN E: ASISTENTE IA (CHAT) -->
+    <!-- ------------------------------------------------------------------ -->
+    <section id="section-chat" class="tab-content hidden space-y-4">
+      
+      <div class="glass-card flex flex-col h-[700px] overflow-hidden">
+        
+        <!-- Header del Chat -->
+        <div class="p-4 border-b border-slate-800 bg-slate-900/60 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-purple-900/80 border border-[#00ff87]/40 flex items-center justify-center text-xs font-bold text-[#00ff87]">
+              🤖
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-white">Antigravity EPL Agent</h3>
+              <p class="text-[11px] text-slate-400">Orquestador de consultas analíticas con Gemini y Function Calling real</p>
+            </div>
+          </div>
+          <button id="btn-chat-reset" class="text-xs px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors">
+            🔄 Reiniciar Memoria
+          </button>
+        </div>
+
+        <!-- Área de Mensajes del Chat -->
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4">
+          
+          <!-- Mensaje inicial de bienvenida -->
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-full bg-purple-900/60 border border-emerald-400/30 flex items-center justify-center text-xs text-emerald-400 font-bold shrink-0">PL</div>
+            <div class="chat-bubble-bot p-4 rounded-2xl max-w-[85%] text-sm">
+              <p class="font-medium text-emerald-400 mb-1">Antigravity Sports Analyst</p>
+              <p>
+                ¡Hola! Soy tu agente especializado en la Premier League inglesa. Tengo acceso directo al Lakehouse DuckDB con 1,140 encuentros, modelos predictivos supervisados y base de conocimiento semántica (RAG).
+              </p>
+              <p class="mt-2 text-xs text-slate-400">
+                Puedes pedirme tablas de posiciones, perfiles tácticos, pronósticos probabilísticos de partidos o explicaciones sobre reglas y torneos.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sugerencias de Consultas Rápidas -->
+        <div class="p-3 border-t border-slate-800/60 bg-slate-900/40 flex items-center gap-2 overflow-x-auto text-xs">
+          <span class="text-slate-500 text-[11px] shrink-0">Sugerencias:</span>
+          <button class="quick-prompt-btn px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 shrink-0">
+            "Tabla de posiciones Premier League 2024"
+          </button>
+          <button class="quick-prompt-btn px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 shrink-0">
+            "¿Qué probabilidades tiene Arsenal de ganar contra Liverpool?"
+          </button>
+          <button class="quick-prompt-btn px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 shrink-0">
+            "Compara el rendimiento de Manchester City y Arsenal"
+          </button>
+          <button class="quick-prompt-btn px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 shrink-0">
+            "¿Cómo funciona la clasificación a Champions League y Europa League?"
+          </button>
+        </div>
+
+        <!-- Formulario de Entrada -->
+        <form id="chat-form" class="p-3 border-t border-slate-800 bg-slate-900/90 flex gap-2">
+          <input 
+            type="text" 
+            id="chat-input" 
+            placeholder="Formula tu pregunta deportiva o analítica en lenguaje natural..." 
+            class="flex-1 bg-slate-800 text-white text-xs border border-slate-700 rounded-xl px-4 py-2.5 focus:border-[#00ff87] focus:outline-none"
+            autocomplete="off"
+            required
+          />
+          <button type="submit" class="px-5 py-2.5 bg-gradient-to-r from-purple-900 to-slate-800 hover:from-purple-800 hover:to-slate-700 text-[#00ff87] font-bold text-xs rounded-xl border border-[#00ff87]/30 transition-all flex items-center gap-1.5 shadow-md">
+            <span>Enviar</span> <span>➤</span>
+          </button>
+        </form>
+
+      </div>
+
+    </section>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- SECCIÓN F: STORYTELLING ANALÍTICO -->
+    <!-- ------------------------------------------------------------------ -->
+    <section id="section-storytelling" class="tab-content hidden space-y-6">
+      
+      <div class="glass-card p-6">
+        <h2 class="text-base font-bold text-white mb-1">Storytelling Analítico y Preguntas Clave</h2>
+        <p class="text-xs text-slate-400 mb-6">
+          Exploración de narrativas complejas basadas en datos empíricos del Lakehouse. 
+          Selecciona cualquiera de las investigaciones predefinidas para que el agente orqueste consultas analíticas multivariable.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Historia 1 -->
+          <div class="glass-card p-4 border-slate-700/60 glass-card-hover flex flex-col justify-between">
+            <div>
+              <div class="text-[10px] uppercase font-bold text-emerald-400 mb-1">Tendencia de Rendimiento</div>
+              <h3 class="text-sm font-bold text-white mb-2">Evolución de Manchester City (2022 a 2025)</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                ¿Cómo ha variado la puntuación, volumen ofensivo y vulnerabilidad defensiva de los 'Citizens' a lo largo de las tres temporadas analizadas?
+              </p>
+            </div>
+            <button class="story-card-btn w-full py-2 bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs font-semibold rounded-lg border border-slate-700 transition-all" data-prompt="¿Cómo ha cambiado el rendimiento de Manchester City desde la temporada 2022 hasta la 2024 en puntos, goles y defensa?">
+              Consultar esta Historia ➤
+            </button>
+          </div>
+
+          <!-- Historia 2 -->
+          <div class="glass-card p-4 border-slate-700/60 glass-card-hover flex flex-col justify-between">
+            <div>
+              <div class="text-[10px] uppercase font-bold text-sky-400 mb-1">Duelo Ofensivo</div>
+              <h3 class="text-sm font-bold text-white mb-2">Arsenal vs Liverpool: Capacidad Ofensiva</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                Comparativa detallada entre la potencia de ataque de los 'Gunners' y los 'Reds', analizando promedios de gol, regularidad reciente y clúster.
+              </p>
+            </div>
+            <button class="story-card-btn w-full py-2 bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs font-semibold rounded-lg border border-slate-700 transition-all" data-prompt="Compara la capacidad ofensiva de Arsenal y Liverpool considerando goles a favor y rendimiento de la temporada 2024.">
+              Consultar esta Historia ➤
+            </button>
+          </div>
+
+          <!-- Historia 3 -->
+          <div class="glass-card p-4 border-slate-700/60 glass-card-hover flex flex-col justify-between">
+            <div>
+              <div class="text-[10px] uppercase font-bold text-purple-400 mb-1">Solidez en Zaga</div>
+              <h3 class="text-sm font-bold text-white mb-2">Consistencia Defensiva en la Liga</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                Identificación de los equipos con menores concesiones de goles en contra y su correlación con la permanencia en el clúster superior.
+              </p>
+            </div>
+            <button class="story-card-btn w-full py-2 bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs font-semibold rounded-lg border border-slate-700 transition-all" data-prompt="¿Qué equipos muestran mayor consistencia defensiva y menos goles recibidos en la temporada 2024?">
+              Consultar esta Historia ➤
+            </button>
+          </div>
+
+          <!-- Historia 4 -->
+          <div class="glass-card p-4 border-slate-700/60 glass-card-hover flex flex-col justify-between">
+            <div>
+              <div class="text-[10px] uppercase font-bold text-amber-400 mb-1">Taxonomía K-Means</div>
+              <h3 class="text-sm font-bold text-white mb-2">Patrones en Clúster de Alto Rendimiento</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                Análisis de las características estadísticas compartidas por los clubes situados en el Clúster 0 (Alto Rendimiento / Contendientes Europeos).
+              </p>
+            </div>
+            <button class="story-card-btn w-full py-2 bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs font-semibold rounded-lg border border-slate-700 transition-all" data-prompt="¿Qué patrones estadísticos y características distinguen a los equipos clasificados en el Clúster 0 de Alto Rendimiento y Contendientes Europeos?">
+              Consultar esta Historia ➤
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================================================================== -->
+  <!-- PIE DE PÁGINA -->
+  <!-- ==================================================================== -->
+  <footer class="border-t border-slate-800/80 bg-[#0d1322] py-4 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>
+        <span>Proyecto de Análisis de Datos y Machine Learning — Instituto Tecnológico de La Laguna (TecNM)</span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] text-slate-400">
+        <span>Fase 4: FastAPI + Dashboard</span>
+        <span>•</span>
+        <a href="/docs" target="_blank" class="hover:text-[#00ff87] transition-colors">API OpenAPI</a>
+        <span>•</span>
+        <a href="/api/v1/status" target="_blank" class="hover:text-[#00ff87] transition-colors">Estado del Sistema</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script de la Aplicación -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
